@@ -4,8 +4,9 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('ziolupo.ricette.views',
     # Examples:
+    url(r'^ricette/$', 'ricette_list', name='api_ricette_list'),
     # url(r'^$', 'ziolupo.views.home', name='home'),
     # url(r'^ziolupo/', include('ziolupo.foo.urls')),
 

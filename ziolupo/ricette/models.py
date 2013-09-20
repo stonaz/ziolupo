@@ -19,9 +19,22 @@ class Categoria(models.Model):
     class Meta:
         app_label = 'ricette'
         verbose_name_plural = "Categorie"
+        
+    def save(self):
+        # Place code here, which is excecuted the same
+        # time the ``pre_save``-signal would be
+        prefix = self.portata
+        self.nome = "%s - %s" % (prefix, self.nome)
+        # Call parent's ``save`` function
+        super(Categoria, self).save()
+
+        # Place code here, which is excecuted the same
+        # time the ``post_save``-signal would be
     
     def __unicode__(self):
         return self.nome
+    
+    
 
 
 class Ricetta(models.Model):
@@ -41,7 +54,6 @@ class Ricetta(models.Model):
     
     def __unicode__(self):
         return self.nome
-        verbose_name_plural = "stories"
 
     
 
