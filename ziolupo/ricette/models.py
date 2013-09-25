@@ -14,19 +14,20 @@ class Portata(models.Model):
     
 class Categoria(models.Model):
     nome = models.CharField("Categoria", max_length=50)
+    slug = models.SlugField(null=True,max_length=100)
     portata = models.ForeignKey(Portata)
     
     class Meta:
         app_label = 'ricette'
         verbose_name_plural = "Categorie"
         
-    def save(self):
-        # Place code here, which is excecuted the same
-        # time the ``pre_save``-signal would be
-        prefix = self.portata
-        self.nome = "%s - %s" % (prefix, self.nome)
-        # Call parent's ``save`` function
-        super(Categoria, self).save()
+    #def save(self):
+    #    # Place code here, which is excecuted the same
+    #    # time the ``pre_save``-signal would be
+    #    prefix = self.portata
+    #    self.nome = "%s - %s" % (prefix, self.nome)
+    #    # Call parent's ``save`` function
+    #    super(Categoria, self).save()
 
         # Place code here, which is excecuted the same
         # time the ``post_save``-signal would be

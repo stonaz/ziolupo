@@ -7,6 +7,10 @@ admin.autodiscover()
 urlpatterns = patterns('ziolupo.ricette.views',
     # Examples:
     url(r'^ricette/$', 'ricette_list', name='api_ricette_list'),
+    url(r'^ricette/(?P<pk>[0-9]+)/$', 'ricette_detail', name='api_ricette_detail'),
+    url(r'^categorie/(?P<nome>[-\w]+)/$', 'categorie_detail', name='api_categorie_detail'),
+    url(r'^categorie/$', 'categorie_list', name='api_categorie_list'),
+
     # url(r'^$', 'ziolupo.views.home', name='home'),
     # url(r'^ziolupo/', include('ziolupo.foo.urls')),
 
