@@ -12,29 +12,59 @@ __all__ = [
     'RicetteDetailSerializer',
     'CategorieListSerializer',
     'CategorieDetailSerializer',
+    'PortateListSerializer',
+    'PortateDetailSerializer',
+    'PortateCategorieSerializer',
+    'PaginatedRicetteListSerializer',
 ]
 
-
-class CategorieListSerializer(serializers.ModelSerializer):
+class PortateListSerializer(serializers.ModelSerializer):
     """
-    Categorie list
+    Portate list
+    """
+    details = serializers.HyperlinkedIdentityField(view_name='api_portate_detail', slug_field='nome')
+    categorie = serializers.RelatedField(many=True)
+    
+    class Meta:
+        model = Portata
+
+        fields= (
+           'nome', 'details','categorie',
+            )
+
+class PortateDetailSerializer(serializers.ModelSerializer):
+    """
+    Portate details
+    """
+    categorie = serializers.RelatedField(many=True)
+    
+    class Meta:
+        model = Portata
+
+        fields= (
+           'nome','categorie'
+            )
+       
+class PortateCategorieSerializer(serializers.ModelSerializer):
+    """
+    Portate/Categorie list
     """
     #details = serializers.HyperlinkedIdentityField(view_name='api_layer_detail', slug_field='slug')
     #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')
     #geojson = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_geojson', slug_field='slug')
     
     class Meta:
-        model = Categoria
+        model = Portata
 
         #fields= (
         #   'nome', 'categoria',
         #    )
-
-class CategorieDetailSerializer(serializers.ModelSerializer):
+        
+class CategorieListSerializer(serializers.ModelSerializer):
     """
-    Categorie details
+    Categorie list
     """
-    #details = serializers.HyperlinkedIdentityField(view_name='api_layer_detail', slug_field='slug')
+    details = serializers.HyperlinkedIdentityField(view_name='api_categorie_detail')
     #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')
     #geojson = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_geojson', slug_field='slug')
     
@@ -49,18 +79,22 @@ class RicetteListSerializer(serializers.ModelSerializer):
     """
     Ricette list
     """
-    #details = serializers.HyperlinkedIdentityField(view_name='api_layer_detail', slug_field='slug')
+    details = serializers.HyperlinkedIdentityField(view_name='api_ricette_detail')
+    categoria = serializers.Field(source='categoria.nome')
+    portata =  serializers.Field(source='categoria.portata')
     #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')
     #geojson = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_geojson', slug_field='slug')
     
     class Meta:
         model = Ricetta
 
-        #fields= (
-        #   'nome', 'categoria',
-        #    )
+        fields= (
+           'portata','categoria','nome', 'difficulty','costo','details',
+            )
 
-
+class PaginatedRicetteListSerializer(pagination.PaginationSerializer):
+    class Meta:
+        object_serializer_class = RicetteListSerializer
 
 class RicetteDetailSerializer(serializers.ModelSerializer):
     """
@@ -72,3 +106,19 @@ class RicetteDetailSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Ricetta
+        
+
+class CategorieDetailSerializer(serializers.ModelSerializer):
+    """
+    Categorie details
+    """
+    ricette = RicetteListSerializer()
+    #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')
+    #geojson = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_geojson', slug_field='slug')
+    
+    class Meta:
+        model = Categoria
+
+        fields= (
+           'nome', 'ricette'
+            )
