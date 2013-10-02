@@ -10,8 +10,6 @@ urlpatterns = patterns('ziolupo.ricette.views',
     url(r'^ricette/(?P<pk>[0-9]+)/$', 'ricette_detail', name='api_ricette_detail'),
     url(r'^categorie/(?P<pk>[0-9]+)/$', 'categorie_detail', name='api_categorie_detail'),
     url(r'^categorie/$', 'categorie_list', name='api_categorie_list'),
-    url(r'^portate/(?P<nome>[-\w]+)/$', 'portate_detail', name='api_portate_detail'),
-    url(r'^portate/$', 'portate_list', name='api_portate_list'),
 
     # url(r'^$', 'ziolupo.views.home', name='home'),
     # url(r'^ziolupo/', include('ziolupo.foo.urls')),

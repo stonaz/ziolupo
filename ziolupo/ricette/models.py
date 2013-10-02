@@ -3,20 +3,18 @@ from django.template.defaultfilters import slugify
 
 # Create your models here.
 
-class Portata(models.Model):
-    nome = models.CharField("Portata", max_length=50)
-    
-    class Meta:
-        app_label = 'ricette'
-        verbose_name_plural = "Portate"
-    
-    def __unicode__(self):
-        return self.nome
+PORTATE = (
+        ('Antipasti', 'Antipasti'),
+        ('Primi', 'Primi'),
+        ('Secondi', 'Secondi'),
+        ('Contorni', 'Contorni'),
+        ('Dolci', 'Dolci'),
+    )
     
 class Categoria(models.Model):
-    nome = models.CharField("Categoria", max_length=50)
+    nome = models.CharField("Categoria", max_length=50, default= ' ')
     slug = models.SlugField(null=True,blank=True,max_length=100)
-    portata = models.ForeignKey(Portata, related_name='categorie')
+    portata = models.CharField("Tipologia", max_length=20,null=False,choices=PORTATE)
     
     class Meta:
         app_label = 'ricette'
@@ -40,6 +38,7 @@ class Ricetta(models.Model):
     ingredients = models.TextField("Ingredienti")
     difficulty = models.CharField("Difficolta",max_length=100)
     preparation = models.TextField("Preparazione")
+    image = models.ImageField(upload_to='images',null=True,blank=True)
     costo= models.CharField("Costo",max_length=10)
     time = models.IntegerField("Tempo di preparazione")
     week_recipe = models.BooleanField("Ricetta della settimana",default=False)

@@ -6,41 +6,8 @@ from django.db.models import Q
 from rest_framework import generics, permissions, authentication
 from rest_framework.response import Response
 
-from .models import Portata,Categoria,Ricetta
+from .models import Categoria,Ricetta
 from .serializers import *
-
-class PortateList(generics.ListCreateAPIView):
-    """
-    ### GET
-    
-    Retrieve list of portate.
-    
-    ### POST
-    
-    Create new portata if authorized (admins and allowed users only).
-    """
-    
-    #permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly, )
-    #authentication_classes = (authentication.SessionAuthentication,)
-    serializer_class= PortateListSerializer
-    queryset = Portata.objects.all()
-
-portate_list = PortateList.as_view()
-
-class PortateDetail(generics.RetrieveAPIView):
-    """
-    ### GET
-    
-    Retrieve portates'detail.
-    
-    """
-    queryset = Portata.objects.all()
-    lookup_field = 'nome'
-    #permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly, )
-    #authentication_classes = (authentication.SessionAuthentication,)
-    serializer_class= PortateDetailSerializer
-
-portate_detail = PortateDetail.as_view()
 
 class CategorieList(generics.ListCreateAPIView):
     """
@@ -90,7 +57,7 @@ class RicetteList(generics.ListCreateAPIView):
     serializer_class= RicetteListSerializer
     pagination_serializer_class = PaginatedRicetteListSerializer
     paginate_by_param = 'limit'
-    paginate_by = 1
+    paginate_by = 2
     
     def get_queryset(self):
         """
