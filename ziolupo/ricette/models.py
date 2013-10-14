@@ -28,8 +28,6 @@ class Categoria(models.Model):
         self.slug = slugify(self.nome)
         super(Categoria, self).save()
     
-    
-
 
 class Ricetta(models.Model):
     nome = models.CharField("Nome",max_length=100)
@@ -48,6 +46,14 @@ class Ricetta(models.Model):
         app_label = 'ricette'
         verbose_name_plural = "Ricette"
         ordering = ['nome']
+        
+    def image_img(self):
+        if self.image:
+            return u'<img width=100 height=75 src="%s" />' % self.image.url
+        else:
+            return '(No image)'
+    image_img.short_description = 'Image'
+    image_img.allow_tags = True
     
     def __unicode__(self):
         return self.nome
@@ -55,6 +61,7 @@ class Ricetta(models.Model):
     def save(self,*args,**kwargs):
         self.slug = slugify(self.nome)
         super(Ricetta, self).save()
+        
 
     
 

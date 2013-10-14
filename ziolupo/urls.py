@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -11,6 +12,7 @@ urlpatterns = patterns('ziolupo.ricette.views',
     url(r'^categorie/(?P<pk>[0-9]+)/$', 'categorie_detail', name='api_categorie_detail'),
     url(r'^categorie/$', 'categorie_list', name='api_categorie_list'),
 
+
     # url(r'^$', 'ziolupo.views.home', name='home'),
     # url(r'^ziolupo/', include('ziolupo.foo.urls')),
 
@@ -19,4 +21,14 @@ urlpatterns = patterns('ziolupo.ricette.views',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+)
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+        url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.STATIC_ROOT,
+        }),
 )
