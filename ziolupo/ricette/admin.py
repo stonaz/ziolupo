@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ziolupo.ricette.models import Categoria,Ricetta
+from ziolupo.ricette.models import Categoria,Ricetta,Lista,Preparazione,TipoPreparazione
 
 
 class CategoriaAdmin(admin.ModelAdmin):
@@ -12,7 +12,7 @@ class RicetteAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('nome', 'categoria', 'image', 'image_img', )
+            'fields': ('nome', 'categoria', 'lista', 'image', 'image_img', )
         }),
         ('Caratteristiche', {
             'classes': ('collapse',),
@@ -30,4 +30,8 @@ class RicetteAdmin(admin.ModelAdmin):
 
 admin.site.register(Categoria,CategoriaAdmin)
 admin.site.register(Ricetta,RicetteAdmin)
+admin.site.register(Lista)
+admin.site.register(TipoPreparazione)
+admin.site.register(Preparazione)
+
 

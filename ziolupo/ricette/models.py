@@ -28,11 +28,24 @@ class Categoria(models.Model):
         self.slug = slugify(self.nome)
         super(Categoria, self).save()
     
+    
+class Lista(models.Model):
+    nome = models.CharField("Nome",max_length=100)
+    
+    class Meta:
+        app_label = 'ricette'
+        verbose_name_plural = "Liste"
+        ordering = ['nome']
+    
+    def __unicode__(self):
+        return self.nome
+    
 
 class Ricetta(models.Model):
     nome = models.CharField("Nome",max_length=100)
     slug = models.SlugField(null=True,blank=True,max_length=100)
     categoria = models.ForeignKey(Categoria,related_name='ricette')
+    lista = models.ForeignKey(Lista,related_name='ricette',blank=True, null=True)
     ingredients = models.TextField("Ingredienti")
     difficulty = models.CharField("Difficolta",max_length=100)
     preparation = models.TextField("Preparazione")
@@ -61,6 +74,31 @@ class Ricetta(models.Model):
     def save(self,*args,**kwargs):
         self.slug = slugify(self.nome)
         super(Ricetta, self).save()
+        
+        
+class TipoPreparazione(models.Model):
+    nome = models.CharField("Nome",max_length=100)
+    
+    class Meta:
+        app_label = 'ricette'
+        verbose_name_plural = "Tipi di Preparazione"
+        ordering = ['nome']
+    
+    def __unicode__(self):
+        return self.nome
+    
+    
+class Preparazione(models.Model):
+    nome = models.CharField("Nome",max_length=100)
+    Tipo = models.ForeignKey(TipoPreparazione,related_name='preparazione')
+    
+    class Meta:
+        app_label = 'ricette'
+        verbose_name_plural = "Preparazione"
+        ordering = ['nome']
+    
+    def __unicode__(self):
+        return self.nome
         
 
     
