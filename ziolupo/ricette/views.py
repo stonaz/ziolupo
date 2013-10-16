@@ -2,12 +2,17 @@ from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.db.models import Q
+from django.conf import settings
+from django.shortcuts import render
 
 from rest_framework import generics, permissions, authentication
 from rest_framework.response import Response
 
 from .models import Categoria,Ricetta
 from .serializers import *
+
+def index(request):
+    return render(request,'ricette/index.html')
 
 class CategorieList(generics.ListCreateAPIView):
     """

@@ -45,7 +45,7 @@ class RicetteListSerializer(serializers.ModelSerializer):
         model = Ricetta
 
         fields= (
-           'categoria','nome', 'difficulty','costo','details',
+           'categoria','nome', 'difficulty','costo','time','image','details',
             )
 
 class PaginatedRicetteListSerializer(pagination.PaginationSerializer):
