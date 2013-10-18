@@ -1,6 +1,6 @@
 function createListeVeloci() {
 
-var url="http://localhost:8000/listeveloci/";
+var url=window.__BASEURL__+"listeveloci/";
 
      $.ajax({
         async: true, 
