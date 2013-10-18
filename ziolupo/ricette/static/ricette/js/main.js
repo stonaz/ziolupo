@@ -1,11 +1,45 @@
+function createListeVeloci() {
 
+var url="http://localhost:8000/listeveloci/";
+
+     $.ajax({
+        async: true, 
+        url: url,
+        dataType: 'json',
+	success: function(response){
+
+       //var idLista=response.id;
+       //var nameLista= response.nome;
+       //alert(response)
+       //alert (response.length);
+       //var recipesURL="http://localhost:8000/ricette/?lista="+idLista;
+       var lista = _.template(templateListeVeloci, { liste : response } );
+       $("#ListeVeloci").append(lista)
+       //getRecipes(recipesURL,1)
+        }
+    });
+}
+
+function getLista(id) {
+
+var url="http://localhost:8000/listeveloci/"+id;
+
+     $.ajax({
+        async: true, 
+        url: url,
+        dataType: 'json',
+	success: function(response){
+       $("#Intestazione").html(response.nome);
+       var recipesURL="http://localhost:8000/ricette/?lista="+id;
+       $("#myCarousel").hide()
+       getRecipes(recipesURL,1)
+        }
+    });
+}
 
 function getCategory(id) {
-/*
- * Load recipes
- */
-//get category details:
-var url="http://localhost/django/categorie/"+id;
+
+var url="http://localhost:8000/categorie/"+id;
 
      $.ajax({
         async: true, 
@@ -16,12 +50,11 @@ var url="http://localhost/django/categorie/"+id;
        var categoriaPortata=response.portata;
        var categoriaNome= response.nome;
        $("#Intestazione").html(categoriaPortata + ' - ' + categoriaNome);
-       var recipesURL="http://localhost/django/ricette/?category="+id;
+       var recipesURL="http://localhost:8000/ricette/?category="+id;
        $("#myCarousel").hide()
        getRecipes(recipesURL,1)
         }
     });
-
 }
 
 function getRecipes(recipesURL,start)
@@ -58,7 +91,6 @@ var count = _.template(templateCounter, { count : data.length } );
  // $("#Ricette").append('<button onClick=getRecipes(\''+ data.next +'\',\''+ 1 +'\')> >> </button>');
  //}
 var output = _.template(templateRicette, { recipes : data } );
-console.log(data.results)
 $("#Ricette").append(output);
 
 			var perPage = 3;

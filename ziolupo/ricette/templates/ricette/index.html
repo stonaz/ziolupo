@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+  
 <html lang="en">
+  {% load staticfiles %}
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +12,10 @@
     <title>Che fame da lupo - ricette di cucina</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-      <link href="css/style.css" rel="stylesheet">
-         <link href="css/main.css" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'ricette/css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ricette/css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ricette/css/main.css' %}" />
 
 
 
@@ -29,13 +32,13 @@
      
    <div class="row">
         <div class="col-lg-5">
-          <img class="hidden-xs" src="logo.png" width="330" height="24" style="margin-top: 40px;">
+          <img class="hidden-xs" src="{% static 'images/logo.png' %}" width="330" height="24" style="margin-top: 40px;">
           
         </div>
         <div class="col-lg-4">
         </div>
         <div class="col-lg-3">
-                 <img class="hidden-xs" src="lupetto.jpg" width="100" height="95" >
+                 <img class="hidden-xs" src="{% static 'images/lupetto.jpg' %}" width="100" height="95" >
  
         </div>
    </div>
@@ -148,19 +151,12 @@
           </div>
         </div>
         <div class="col-lg-3">
-      <div class="sidebar">
-        <ul>Liste veloci
-   <li> Ricette facili e veloci</li>
-       <li>Piatti unici</li>
-       <li>Ricette per le feste</li>
-       <li>Buffet</li>
-       <li>Conserve</li>
-       <li>Torte salate</li>
-       <li>Ricette dei lettori</li>
-      </ul>
-        
+      <div class="sidebar" >
+        <ul id="ListeVeloci">Liste veloci
 
+      </ul>
       </div>
+      
       <div class="sidebar">
       <ul>Tecniche e preparazioni
       <li>  Preparazione di base </li>
@@ -179,17 +175,20 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/underscore-min.js"></script>
-    <script src="js/jquery-1.9.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/templates.js"></script>
-     <script src="js/jquery.simplePagination.js"></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/underscore-min.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/jquery-1.9.1.min.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/bootstrap.min.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/templates.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/jquery.simplePagination.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/main.js' %}" /></script>
+
     <script>
 $('.carousel').carousel({
   interval: 5000
-})
+});
+createListeVeloci();
 
 </script>
-    <script src="js/main.js"></script>
+
   </body>
 </html>

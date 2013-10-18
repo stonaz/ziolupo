@@ -1,9 +1,18 @@
 //Templates
+
+var templateListeVeloci="\
+<% for (var index = 0; index < liste.length; index++){ %>\
+<% var lista = liste[index]; %>\
+<li><a onclick=getLista(<%= lista.id %>)><%= lista.nome %></a></li>\
+<% } %>\
+";
+
+        
 var templateRicette="\
 <% for (var index = 0; index < recipes.length; index++){ %>\
 <% var recipe = recipes[index]; %>\
 <div class='recipe'>\
-<img src='<%= recipe.image %>' width='100' height='75' style='float: left;margin-right: 10px;'>\
+<img src='media/<%= recipe.image %>' width='100' height='75' style='float: left;margin-right: 10px;'>\
 <a href='#' onClick=showRecipe('<%= recipe.details %>')><%= recipe.nome %></a>\
 <p class='spec'> <strong>Difficoltà: </strong><%= recipe.difficulty %></p>\
 <p class='spec'><strong>Costo: </strong><%= recipe.costo %></p>\
@@ -15,7 +24,7 @@ var templateRicette="\
 var templateRicetta="\
 <div>\
 <h1><%= recipe.nome %></h1>\
-<img src='<%= recipe.image %>' width='200' height='150' style='float: left;margin-right: 10px;'>\
+<img src='media/<%= recipe.image %>' width='200' height='150' style='float: left;margin-right: 10px;'>\
 <p > <strong>Difficoltà: </strong><%= recipe.difficulty %></p>\
 <p ><strong>Costo: </strong><%= recipe.costo %></p>\
 <p ><strong>Tempo di preparazione: </strong><%= recipe.time %></p>\

@@ -11,6 +11,8 @@ urlpatterns = patterns('ziolupo.ricette.views',
     url(r'^ricette/(?P<pk>[0-9]+)/$', 'ricette_detail', name='api_ricette_detail'),
     url(r'^categorie/(?P<pk>[0-9]+)/$', 'categorie_detail', name='api_categorie_detail'),
     url(r'^categorie/$', 'categorie_list', name='api_categorie_list'),
+    url(r'^listeveloci/$', 'listeveloci_list', name='api_listeveloci_list'),
+    url(r'^listeveloci/(?P<pk>[0-9]+)/$', 'listeveloci_detail', name='api_listeveloci_detail'),
     url(r'^$', 'index', name='home'),
 
 

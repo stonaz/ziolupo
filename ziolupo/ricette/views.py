@@ -8,11 +8,47 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, authentication
 from rest_framework.response import Response
 
-from .models import Categoria,Ricetta
+from .models import Categoria,Ricetta,Lista
 from .serializers import *
 
 def index(request):
     return render(request,'ricette/index.html')
+
+class ListeVelociList(generics.ListCreateAPIView):
+    """
+    ### GET
+    
+    Retrieve list of categories.
+    
+    ### POST
+    
+    Create new category if authorized (admins and allowed users only).
+    """
+    
+    #permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly, )
+    #authentication_classes = (authentication.SessionAuthentication,)
+    serializer_class= ListeVelociListSerializer
+    queryset = Lista.objects.all()
+
+listeveloci_list = ListeVelociList.as_view()
+
+
+class ListeVelociDetail(generics.RetrieveAPIView):
+    """
+    ### GET
+    
+    Retrieve detail of lists.
+    
+    
+    """
+    
+    #permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly, )
+    #authentication_classes = (authentication.SessionAuthentication,)
+    serializer_class= ListeVelociDetailSerializer
+    queryset = Lista.objects.all()
+
+listeveloci_detail = ListeVelociDetail.as_view()
+
 
 class CategorieList(generics.ListCreateAPIView):
     """
@@ -31,6 +67,7 @@ class CategorieList(generics.ListCreateAPIView):
     queryset = Categoria.objects.all()
 
 categorie_list = CategorieList.as_view()
+
 
 class CategorieDetail(generics.RetrieveAPIView):
     """
@@ -75,6 +112,7 @@ class RicetteList(generics.ListCreateAPIView):
         # retrieve value of querystring parameter "search"
         search = self.request.QUERY_PARAMS.get('search', None)
         category= self.request.QUERY_PARAMS.get('category', None)
+        lista= self.request.QUERY_PARAMS.get('lista', None)
         
         if search is not None:
             search_query = (
@@ -86,6 +124,13 @@ class RicetteList(generics.ListCreateAPIView):
         if category is not None:
             search_query = (
                 Q(categoria=category) 
+            )
+            # add instructions for search to queryset
+            queryset = queryset.filter(search_query)
+            
+        if lista is not None:
+            search_query = (
+                Q(lista=lista) 
             )
             # add instructions for search to queryset
             queryset = queryset.filter(search_query)
