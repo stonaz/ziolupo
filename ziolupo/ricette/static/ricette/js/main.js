@@ -23,7 +23,7 @@ var url=window.__BASEURL__+"listeveloci/"+id;
         dataType: 'json',
 	success: function(response){
        $("#Intestazione").html(response.nome);
-       var recipesURL="http://localhost:8000/ricette/?lista="+id;
+       var recipesURL=window.__BASEURL__+"ricette/?lista="+id;
        $("#myCarousel").hide()
        getRecipes(recipesURL,1)
         }
@@ -32,7 +32,7 @@ var url=window.__BASEURL__+"listeveloci/"+id;
 
 function getCategory(id) {
 
-var url="http://localhost:8000/categorie/"+id;
+var url=window.__BASEURL__+"categorie/"+id;
 
      $.ajax({
         async: true, 
@@ -43,7 +43,7 @@ var url="http://localhost:8000/categorie/"+id;
        var categoriaPortata=response.portata;
        var categoriaNome= response.nome;
        $("#Intestazione").html(categoriaPortata + ' - ' + categoriaNome);
-       var recipesURL="http://localhost:8000/ricette/?category="+id;
+       var recipesURL=window.__BASEURL__+"ricette/?category="+id;
        $("#myCarousel").hide()
        getRecipes(recipesURL)
         }
