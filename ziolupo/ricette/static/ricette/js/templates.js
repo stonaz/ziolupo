@@ -22,18 +22,20 @@ var templateRicette="\
 ";
 
 var templateRicetta="\
-<div>\
+<div >\
 <h1><%= recipe.nome %></h1>\
 <img src='media/<%= recipe.image %>' width='200' height='150' style='float: left;margin-right: 10px;'>\
 <p > <strong>Difficoltà: </strong><%= recipe.difficulty %></p>\
 <p ><strong>Costo: </strong><%= recipe.costo %></p>\
 <p ><strong>Tempo di preparazione: </strong><%= recipe.time %></p>\
 <\div>\
-<div class='testo' style='clear:left;'>\
+<div style='clear:left;padding-top:20px;';>\
+<div class='testo' >\
 <p ><strong>Ingredienti: </strong><br><%= recipe.ingredients %></p>\
 </div>\
 <div class='testo' >\
 <strong>Preparazione: </strong><br><%= recipe.preparation %>\
+</div>\
 </div>\
  ";
 

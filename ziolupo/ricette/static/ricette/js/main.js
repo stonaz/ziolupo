@@ -7,15 +7,8 @@ var url="http://localhost:8000/listeveloci/";
         url: url,
         dataType: 'json',
 	success: function(response){
-
-       //var idLista=response.id;
-       //var nameLista= response.nome;
-       //alert(response)
-       //alert (response.length);
-       //var recipesURL="http://localhost:8000/ricette/?lista="+idLista;
        var lista = _.template(templateListeVeloci, { liste : response } );
        $("#ListeVeloci").append(lista)
-       //getRecipes(recipesURL,1)
         }
     });
 }
@@ -52,12 +45,12 @@ var url="http://localhost:8000/categorie/"+id;
        $("#Intestazione").html(categoriaPortata + ' - ' + categoriaNome);
        var recipesURL="http://localhost:8000/ricette/?category="+id;
        $("#myCarousel").hide()
-       getRecipes(recipesURL,1)
+       getRecipes(recipesURL)
         }
     });
 }
 
-function getRecipes(recipesURL,start)
+function getRecipes(recipesURL)
 {
 
     $.ajax({
@@ -66,38 +59,27 @@ function getRecipes(recipesURL,start)
         dataType: 'json',
         success: function(response){
        
-       printRecipes(response,start);
+       printRecipes(response);
       
         }
         
     });
 }
 
-function printRecipes(data,start)
+function printRecipes(data)
 {
- //var start=parseInt(start)
- //var offset=start - 1 + data.results.length;
- $("#Ricette").html('');
-  $("#Pages").html('');
- //$("#Ricette").append('da ' + start +' a ' + offset + '<br>');
+$("#Ricette").html('');
+$("#Pages").html('');
 var count = _.template(templateCounter, { count : data.length } );
- $("#Intestazione").append(count);
- //$("#Intestazione").append('<br>Ricette trovate: ' + data.length);
- //if ( data.previous !==  null) {
- // //offsetPrev=offset - 3
- //  $("#Ricette").append('<button onClick=getRecipes(\''+ data.previous +'\',\''+ 1 +'\')> << </button>')
- //}
- //if ( data.next !== null) {
- // $("#Ricette").append('<button onClick=getRecipes(\''+ data.next +'\',\''+ 1 +'\')> >> </button>');
- //}
+$("#Intestazione").append(count);
 var output = _.template(templateRicette, { recipes : data } );
 $("#Ricette").append(output);
-
-			var perPage = 3;
-			var opened = 1;
-			var onClass = 'on';
-			var paginationSelector = '.pages';
-$("#Ricette").simplePagination(perPage, 1, onClass, paginationSelector);
+	$("div.holder").jPages({
+	    containerID : "Ricette",
+	    perPage: 5,
+            midRange: 3
+            
+  	});
 }
 
 function getRecipe(recipeURL)
@@ -118,9 +100,7 @@ function getRecipe(recipeURL)
 
 function printRecipe(data)
 {
- 
 var output = _.template(templateRicetta, { recipe : data } );
-console.log(data.nome)
 $("#displayRecipe").append(output)
 }
 
