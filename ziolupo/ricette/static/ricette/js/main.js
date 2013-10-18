@@ -15,7 +15,7 @@ var url="http://localhost:8000/listeveloci/";
 
 function getLista(id) {
 
-var url="http://localhost:8000/listeveloci/"+id;
+var url=window.__BASEURL__+"listeveloci/"+id;
 
      $.ajax({
         async: true, 
