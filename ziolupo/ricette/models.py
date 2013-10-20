@@ -76,12 +76,12 @@ class Ricetta(models.Model):
         super(Ricetta, self).save()
         
         
-class TipoPreparazione(models.Model):
+class CategoriaPreparazione(models.Model):
     nome = models.CharField("Nome",max_length=100)
     
     class Meta:
         app_label = 'ricette'
-        verbose_name_plural = "Tipi di Preparazione"
+        verbose_name_plural = "Categorie Preparazione"
         ordering = ['nome']
     
     def __unicode__(self):
@@ -90,11 +90,11 @@ class TipoPreparazione(models.Model):
     
 class Preparazione(models.Model):
     nome = models.CharField("Nome",max_length=100)
-    Tipo = models.ForeignKey(TipoPreparazione,related_name='preparazione')
+    Categoria = models.ForeignKey(CategoriaPreparazione,related_name='preparazione')
     
     class Meta:
         app_label = 'ricette'
-        verbose_name_plural = "Preparazione"
+        verbose_name_plural = "Preparazioni"
         ordering = ['nome']
     
     def __unicode__(self):

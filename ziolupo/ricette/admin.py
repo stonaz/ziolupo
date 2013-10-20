@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ziolupo.ricette.models import Categoria,Ricetta,Lista,Preparazione,TipoPreparazione
+from ziolupo.ricette.models import Categoria,Ricetta,Lista,Preparazione,CategoriaPreparazione
 
 
 class CategoriaAdmin(admin.ModelAdmin):
@@ -31,7 +31,7 @@ class RicetteAdmin(admin.ModelAdmin):
 admin.site.register(Categoria,CategoriaAdmin)
 admin.site.register(Ricetta,RicetteAdmin)
 admin.site.register(Lista)
-admin.site.register(TipoPreparazione)
+admin.site.register(CategoriaPreparazione)
 admin.site.register(Preparazione)
 
 
