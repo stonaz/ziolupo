@@ -7,6 +7,13 @@ var templateListeVeloci="\
 <% } %>\
 ";
 
+var templateCategoriePreparazioni="\
+<% for (var index = 0; index < liste.length; index++){ %>\
+<% var lista = liste[index]; %>\
+<li><a onclick=getCategoriaPreparazione(<%= lista.id %>)><%= lista.nome %></a></li>\
+<% } %>\
+";
+
         
 var templateRicette="\
 <% for (var index = 0; index < recipes.length; index++){ %>\
@@ -20,6 +27,14 @@ var templateRicette="\
 </div>\
 <% } %>\
 ";
+
+var templatePreparazioni="\
+<% for (var index = 0; index < preparazioni.length; index++){ %>\
+<% var preparazione = preparazioni[index]; %>\
+<li  class='preparazioni'><a  href='#' onClick=showPreparazione('<%= preparazione.details %>')><%= preparazione.nome %></a> </li>\
+<% } %>\
+";
+
 
 var templateRicetta="\
 <div >\
@@ -39,7 +54,21 @@ var templateRicetta="\
 </div>\
  ";
 
+var templatePreparazione="\
+<div >\
+<h1><%= recipe.nome %></h1>\
+<\div>\
+<div style='clear:left;padding-top:20px;';>\
+<div class='testo' >\
+<p ><strong>Ingredienti: </strong><br><%= recipe.ingredients %></p>\
+</div>\
+<div class='testo' >\
+<strong>Preparazione: </strong><br><%= recipe.preparation %>\
+</div>\
+</div>\
+ ";
+
 var templateCounter="\
 <br>\
-<span class='counter' >Ricette trovate: <strong><%= count %></strong></span>\
+<span class='counter' ><%= item %> trovate: <strong><%= count %></strong></span>\
  ";

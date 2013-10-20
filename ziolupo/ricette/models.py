@@ -90,7 +90,9 @@ class CategoriaPreparazione(models.Model):
     
 class Preparazione(models.Model):
     nome = models.CharField("Nome",max_length=100)
-    Categoria = models.ForeignKey(CategoriaPreparazione,related_name='preparazione')
+    categoria = models.ForeignKey(CategoriaPreparazione,related_name='preparazione')
+    ingredients = models.TextField("Ingredienti",blank=True,null=True)
+    preparation = models.TextField("Preparazione")
     
     class Meta:
         app_label = 'ricette'

@@ -13,7 +13,10 @@ urlpatterns = patterns('ziolupo.ricette.views',
     url(r'^categorie/$', 'categorie_list', name='api_categorie_list'),
     url(r'^listeveloci/$', 'listeveloci_list', name='api_listeveloci_list'),
     url(r'^listeveloci/(?P<pk>[0-9]+)/$', 'listeveloci_detail', name='api_listeveloci_detail'),
-    url(r'^categorie_preparazioni/$', 'categoria_preparazione_list', name='api_categorie_preparazioni_list'),
+    url(r'^preparazioni/$', 'preparazioni_list', name='api_preparazioni_list'),
+    url(r'^preparazioni/(?P<pk>[0-9]+)/$', 'preparazioni_detail', name='api_preparazioni_detail'),
+    url(r'^categorie_preparazioni/$', 'categorie_preparazioni_list', name='api_categorie_preparazioni_list'),
+    url(r'^categorie_preparazioni/(?P<pk>[0-9]+)/$', 'categorie_preparazioni_detail', name='api_categorie_preparazioni_detail'),
     
     url(r'^$', 'index', name='home'),
 

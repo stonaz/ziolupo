@@ -8,14 +8,14 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, authentication
 from rest_framework.response import Response
 
-from .models import Categoria,Ricetta,Lista,CategoriaPreparazione
+from .models import Categoria,Ricetta,Lista,CategoriaPreparazione,Preparazione
 from .serializers import *
 
 def index(request):
     return render(request,'ricette/index.html')
 
 
-class CategoriaPreparazioneList(generics.ListCreateAPIView):
+class CategoriePreparazioniList(generics.ListCreateAPIView):
     """
     ### GET
     
@@ -28,11 +28,26 @@ class CategoriaPreparazioneList(generics.ListCreateAPIView):
     
     #permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly, )
     #authentication_classes = (authentication.SessionAuthentication,)
-    serializer_class= CategoriaPreparazioneListSerializer
+    serializer_class= CategoriePreparazioniListSerializer
     queryset = CategoriaPreparazione.objects.all()
     
-categoria_preparazione_list = CategoriaPreparazioneList.as_view()
+categorie_preparazioni_list = CategoriePreparazioniList.as_view()
+
+
+class CategoriePreparazioniDetail(generics.RetrieveAPIView):
+    """
+    ### GET
     
+    
+    
+    """
+    
+    #permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly, )
+    #authentication_classes = (authentication.SessionAuthentication,)
+    serializer_class= CategoriePreparazioniDetailSerializer
+    queryset = CategoriaPreparazione.objects.all()
+    
+categorie_preparazioni_detail = CategoriePreparazioniDetail.as_view()
 
 class ListeVelociList(generics.ListCreateAPIView):
     """
@@ -173,5 +188,62 @@ class RicetteDetail(generics.RetrieveAPIView):
     serializer_class= RicetteDetailSerializer
 
 ricette_detail = RicetteDetail.as_view()
+
+
+class PreparazioniList(generics.ListCreateAPIView):
+    """
+    ### GET
+    
+    Retrieve list of recipes.
+    
+    ### POST
+    
+    Create new recipe if authorized (admins and allowed users only).
+    """
+    
+    #permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly, )
+    #authentication_classes = (authentication.SessionAuthentication,)
+    serializer_class= PreparazioniListSerializer
+    #pagination_serializer_class = PaginatedRicetteListSerializer
+    #paginate_by_param = 'limit'
+    #paginate_by = 2
+    
+    def get_queryset(self):
+        """
+        Optionally restricts the returned results
+        by filtering against a `search` query parameter in the URL.
+        """
+
+        queryset = Preparazione.objects.all()
+        
+        # retrieve value of querystring parameter "search"
+        category= self.request.QUERY_PARAMS.get('category', None)
+        
+        if category is not None:
+            search_query = (
+                Q(categoria=category) 
+            )
+            # add instructions for search to queryset
+            queryset = queryset.filter(search_query)
+        
+        return queryset
+
+preparazioni_list = PreparazioniList.as_view()
+
+
+class PreparazioniDetail(generics.RetrieveAPIView):
+    """
+    ### GET
+    
+    Retrieve preparazioni'detail.
+    
+    """
+    model= Preparazione
+    queryset = Preparazione.objects.all()
+    #permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly, )
+    #authentication_classes = (authentication.SessionAuthentication,)
+    serializer_class= PreparazioniDetailSerializer
+
+preparazioni_detail = PreparazioniDetail.as_view()
 
 

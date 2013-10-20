@@ -2,7 +2,7 @@ from django.conf import settings
 from rest_framework import serializers, pagination
 
 
-from .models import Categoria,Ricetta,Lista,CategoriaPreparazione
+from .models import Categoria,Ricetta,Lista,CategoriaPreparazione,Preparazione
 
 
 
@@ -15,7 +15,10 @@ __all__ = [
     'PaginatedRicetteListSerializer',
     'ListeVelociListSerializer',
     'ListeVelociDetailSerializer',
-    'CategoriaPreparazioneListSerializer',
+    'CategoriePreparazioniListSerializer',
+    'CategoriePreparazioniDetailSerializer',
+    'PreparazioniDetailSerializer',
+    'PreparazioniListSerializer'
 ]
 
 
@@ -31,11 +34,11 @@ class ListeVelociListSerializer(serializers.ModelSerializer):
         model = Lista
         
         
-class CategoriaPreparazioneListSerializer(serializers.ModelSerializer):
+class CategoriePreparazioniListSerializer(serializers.ModelSerializer):
     """
     Categoria preparazione list
     """
-    #details = serializers.HyperlinkedIdentityField(view_name='api_listeveloci_detail')
+    details = serializers.HyperlinkedIdentityField(view_name='api_categorie_preparazioni_detail')
     #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')
     #geojson = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_geojson', slug_field='slug')
     
@@ -74,6 +77,23 @@ class RicetteListSerializer(serializers.ModelSerializer):
 
         fields= (
            'categoria','nome', 'difficulty','costo','time','image','details',
+            )
+
+        
+class PreparazioniListSerializer(serializers.ModelSerializer):
+    """
+    Preparazioni list
+    """
+    details = serializers.HyperlinkedIdentityField(view_name='api_preparazioni_detail')
+    categoria = serializers.Field(source='categoria.nome')
+    #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')
+    #geojson = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_geojson', slug_field='slug')
+    
+    class Meta:
+        model = Preparazione
+
+        fields= (
+           'categoria','nome', 'details',
             )
 
 
@@ -121,3 +141,27 @@ class CategorieDetailSerializer(serializers.ModelSerializer):
         fields= (
            'portata','nome', 'ricette'
             )
+
+
+class PreparazioniDetailSerializer(serializers.ModelSerializer):
+    """
+    Preparazioni details
+    """
+    #details = serializers.HyperlinkedIdentityField(view_name='api_layer_detail', slug_field='slug')
+    #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')
+    #geojson = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_geojson', slug_field='slug')
+    
+    class Meta:
+        model = Preparazione
+        
+        
+class CategoriePreparazioniDetailSerializer(serializers.ModelSerializer):
+    """
+    Categorie preparazioni details
+    """
+    #details = serializers.HyperlinkedIdentityField(view_name='api_layer_detail', slug_field='slug')
+    #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')
+    #geojson = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_geojson', slug_field='slug')
+    
+    class Meta:
+        model = CategoriaPreparazione
