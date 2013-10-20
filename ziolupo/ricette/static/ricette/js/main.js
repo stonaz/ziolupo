@@ -13,6 +13,21 @@ var url=window.__BASEURL__+"listeveloci/";
     });
 }
 
+function createCategoriePreparazione() {
+
+var url=window.__BASEURL__+"categorie_preparazioni/";
+
+     $.ajax({
+        async: true, 
+        url: url,
+        dataType: 'json',
+	success: function(response){
+       var lista = _.template(templateListeVeloci, { liste : response } );
+       $("#Preparazioni").append(lista)
+        }
+    });
+}
+
 function getLista(id) {
 
 var url=window.__BASEURL__+"listeveloci/"+id;

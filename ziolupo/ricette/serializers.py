@@ -2,7 +2,7 @@ from django.conf import settings
 from rest_framework import serializers, pagination
 
 
-from .models import Categoria,Ricetta,Lista
+from .models import Categoria,Ricetta,Lista,CategoriaPreparazione
 
 
 
@@ -14,7 +14,8 @@ __all__ = [
     'CategorieDetailSerializer',
     'PaginatedRicetteListSerializer',
     'ListeVelociListSerializer',
-    'ListeVelociDetailSerializer'
+    'ListeVelociDetailSerializer',
+    'CategoriaPreparazioneListSerializer',
 ]
 
 
@@ -28,10 +29,19 @@ class ListeVelociListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Lista
-
-        #fields= (
-        #   'nome', 'categoria',
-        #    )
+        
+        
+class CategoriaPreparazioneListSerializer(serializers.ModelSerializer):
+    """
+    Categoria preparazione list
+    """
+    #details = serializers.HyperlinkedIdentityField(view_name='api_listeveloci_detail')
+    #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')
+    #geojson = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_geojson', slug_field='slug')
+    
+    class Meta:
+        model = CategoriaPreparazione
+        
 
         
 class CategorieListSerializer(serializers.ModelSerializer):
@@ -75,7 +85,7 @@ class PaginatedRicetteListSerializer(pagination.PaginationSerializer):
 
 class ListeVelociDetailSerializer(serializers.ModelSerializer):
     """
-    Ricette details
+    Liste veloci details
     """
     #details = serializers.HyperlinkedIdentityField(view_name='api_layer_detail', slug_field='slug')
     #nodes = serializers.HyperlinkedIdentityField(view_name='api_layer_nodes_list', slug_field='slug')

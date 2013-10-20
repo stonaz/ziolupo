@@ -8,11 +8,31 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, authentication
 from rest_framework.response import Response
 
-from .models import Categoria,Ricetta,Lista
+from .models import Categoria,Ricetta,Lista,CategoriaPreparazione
 from .serializers import *
 
 def index(request):
     return render(request,'ricette/index.html')
+
+
+class CategoriaPreparazioneList(generics.ListCreateAPIView):
+    """
+    ### GET
+    
+    Retrieve list of categories.
+    
+    ### POST
+    
+    Create new category if authorized (admins and allowed users only).
+    """
+    
+    #permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly, )
+    #authentication_classes = (authentication.SessionAuthentication,)
+    serializer_class= CategoriaPreparazioneListSerializer
+    queryset = CategoriaPreparazione.objects.all()
+    
+categoria_preparazione_list = CategoriaPreparazioneList.as_view()
+    
 
 class ListeVelociList(generics.ListCreateAPIView):
     """
