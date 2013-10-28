@@ -45,7 +45,7 @@ class Ricetta(models.Model):
     nome = models.CharField("Nome",max_length=100)
     slug = models.SlugField(null=True,blank=True,max_length=100)
     categoria = models.ForeignKey(Categoria,related_name='ricette')
-    lista = models.ForeignKey(Lista,related_name='ricette',blank=True, null=True)
+    lista = models.ManyToManyField(Lista,related_name='ricette',blank=True, null=True)
     ingredients = models.TextField("Ingredienti")
     difficulty = models.CharField("Difficolta",max_length=100)
     preparation = models.TextField("Preparazione")
