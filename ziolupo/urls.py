@@ -19,6 +19,7 @@ urlpatterns = patterns('ziolupo.ricette.views',
     url(r'^categorie_preparazioni/(?P<pk>[0-9]+)/$', 'categorie_preparazioni_detail', name='api_categorie_preparazioni_detail'),
     
     url(r'^$', 'index', name='home'),
+    url(r'^test/$', 'test', name='home_test'),
 
 
     # url(r'^$', 'ziolupo.views.home', name='home'),

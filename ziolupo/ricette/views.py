@@ -14,6 +14,9 @@ from .serializers import *
 def index(request):
     return render(request,'ricette/index.html')
 
+def test(request):
+    return render(request,'ricette/index_test.html')
+
 
 class CategoriePreparazioniList(generics.ListCreateAPIView):
     """

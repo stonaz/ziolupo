@@ -95,24 +95,22 @@ cursor: pointer;
 }
 
 .preparazioni {
-font-size: 13px;
+font-size: 14px;
 font-weight: bold;
 list-style: none;
 color: #0000ff;
 padding-left: 0;
 margin-left: 0;
 text-shadow: none;
-cursor: pointer;
+background-color: rgba(128,128,128,0.7);
 }
 
-.preparazioni a{
-font-size: 13px;
-list-style: none;
-color: #0000ff;
-padding-left: 0;
-margin-left: 0;
-text-shadow: none;
+.preparazioni a
+{
 cursor: pointer;
+color: #0000ff;
+
+
 }
 
 .section {

@@ -135,15 +135,15 @@
 	<!-- Carousel items -->
     <div class="carousel-inner">
         <div class="active item">
-            <img src="media/images/spaghetti_con_le_alici.JPG" alt="" width="501" height="377">
+            <img src="{{ MEDIA_URL }}images/spaghetti_con_le_alici.JPG" alt="" width="501" height="377">
            
         </div>
         <div class="item">
-            <img src="media/images/DSC01961.JPG" alt="" width="501" height="377">
+            <img src="{{ MEDIA_URL }}images/DSC01961.JPG" alt="" width="501" height="377">
            
         </div>
         <div class="item">
-            <img src="media/images/DSC02120.JPG" alt="" width="501" height="377">
+            <img src="{{ MEDIA_URL }}images/DSC02120.JPG" alt="" width="501" height="377">
            
         </div>  
     </div>
@@ -170,7 +170,13 @@
 
     </div> <!-- /container -->
 
+    <!-- Backbone templates -->
+    
+    
+<script id="tmplCategoriaPreparazioni" type="text/template">
+<li id ="<%= id %>"><a onclick=getCategoriaPreparazione(<%= id %>)><%= nome %></a></li>
 
+</script>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -179,18 +185,27 @@ console.log(window.__BASEURL__ )</script>
 
     <script  type="text/javascript" src="{% static 'ricette/js/underscore-min.js' %}" ></script>
     <script  type="text/javascript" src="{% static 'ricette/js/jquery-1.9.1.min.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/backbone.js' %}" ></script>
     <script  type="text/javascript" src="{% static 'ricette/js/bootstrap.min.js' %}" ></script>
     <script  type="text/javascript" src="{% static 'ricette/js/templates.js' %}" ></script>
     <script  type="text/javascript" src="{% static 'ricette/js/jquery.pages.js' %}" ></script>
     <script  type="text/javascript" src="{% static 'ricette/js/main.js' %}" /></script>
 
+    <script  type="text/javascript" src="{% static 'ricette/js/models/categoriaPreparazioni.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/collections/categoriePreparazioni.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/views/categoriePreparazioni.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/views/categoriaPreparazioni.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/views/testView.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/app.js' %}" /></script>
+
     <script>
-      var media_url =    "{{ MEDIA_URL }}";
+  var media_url =    "{{ MEDIA_URL }}";
+  //console.log(media_url)
 $('.carousel').carousel({
   interval: 2000
 });
 createListeVeloci();
-createCategoriePreparazione()
+//createCategoriePreparazione();
 </script>
 
   </body>
