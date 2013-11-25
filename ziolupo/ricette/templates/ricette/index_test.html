@@ -13,8 +13,8 @@
 
     <!-- Bootstrap core CSS -->
     
-    <link rel="stylesheet" type="text/css" href="{% static 'ricette/css/bootstrap.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'ricette/css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ricette/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ricette/css/screen.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'ricette/css/main.css' %}" />
 
 
@@ -57,7 +57,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
                         <li class="dropdown">
-              <a onClick=getCategory('1') class="dropdown-menu">Antipasti </a>
+              <a onClick=getCategory('1') class="dropdown-toggle" data-toggle="dropdown">Antipasti </a>
               
             </li>
             <li class="dropdown">
@@ -112,9 +112,10 @@
         
         <div class="col-lg-6 ">
           <div class="section">
+            <div id="pagination" ></div>
             <div id="Main">
             
-              <div id="Counter" class="holder" ></div> 
+              
               <div id="Intestazione"></div>
               
               
@@ -134,7 +135,7 @@
    
 	<!-- Carousel items -->
     <div class="carousel-inner">
-        <div class="active item">
+<!--        <div class="active item">
             <img src="{{ MEDIA_URL }}images/spaghetti_con_le_alici.JPG" alt="" width="501" height="377">
            
         </div>
@@ -145,7 +146,7 @@
         <div class="item">
             <img src="{{ MEDIA_URL }}images/DSC02120.JPG" alt="" width="501" height="377">
            
-        </div>  
+        </div>  -->
     </div>
     
     </div>
@@ -171,12 +172,92 @@
     </div> <!-- /container -->
 
     <!-- Backbone templates -->
-    
-    
-<script id="tmplCategoriaPreparazioni" type="text/template">
-<li id ="<%= id %>"><a onclick=getCategoriaPreparazione(<%= id %>)><%= nome %></a></li>
 
+<script id="resultItemTemplate" type="text/template">
+<a href='#' onClick=showRecipe('<%= details %>')><%= nome %></a>
+</script>    
+
+
+<script id="tmplCategoriaPreparazioni" type="text/template">
+<li id ="<%= id %>"><a ><%= nome %></a></li>
 </script>
+
+
+<script type="text/html" id="tmpClientPagination">
+		 <div class="breadcrumb">
+
+			<span class="cell last pages">
+				<% if (currentPage != 1) { %>
+					<a href="#" class="first">First</a>
+					<a href="#" class="prev">Previous</a>
+				<% } %>
+				<% _.each (pageSet, function (p) { %>
+					<% if (currentPage == p) { %>
+						<span class="page selected"><%= p %></span>
+					<% } else { %>
+						<a href="#" class="page"><%= p %></a>
+					<% } %>
+				<% }); %>
+				<% if (lastPage != currentPage && lastPage != 0) { %>
+					<a href="#" class="next">Next</a>
+					<a href="#" class="last">Last</a>
+				<% } %>
+			</span>
+
+			<span class="divider">/</span>
+
+			<span class="cell howmany">
+				Show
+				<a href="#" class="selected">3</a>
+				|
+				<a href="#" class="">9</a>
+				|
+				<a href="#" class="">12</a>
+			</span>
+
+			<span class="divider">/</span>
+			
+			<span class="cell first records">
+				<span class="current"><%= startRecord %></span>
+				-
+				<span class="perpage"><%= endRecord %></span>
+				of
+				<span class="total"><%= totalRecords %></span>
+							shown
+			</span>
+
+
+			<span class="divider">/</span>
+
+			<select id="sortByOption">
+				<option value="cid">Select a field to sort on</option>
+			    <option value="Name">name</option>
+			 	<option value="Runtime">runtime</option>
+			 	<option value="Rating">rating</option>
+			</select>
+
+			<span class="cell sort">
+				<a href="#" class="sortAsc btn small">Sort (Asc)</a>
+				<a href="#" class="sortDsc btn small">Sort (Desc)</a>
+			</span>
+
+			<span class="divider">/</span>
+
+			<select id="filterByOption">
+				<option value="cid">Select a field to filter on</option>
+				<option value="Name">name</option>
+				<option value="Runtime">runtime</option>
+				<option value="Rating">rating</option>
+			</select>
+
+			<span class="cell sort">
+				<input id="filterString" type="text" class="cell" />
+				<a href="#" class="filter btn small">Filter</a>
+			</span>
+
+		  </div>
+		</script>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -189,21 +270,33 @@ console.log(window.__BASEURL__ )</script>
     <script  type="text/javascript" src="{% static 'ricette/js/bootstrap.min.js' %}" ></script>
     <script  type="text/javascript" src="{% static 'ricette/js/templates.js' %}" ></script>
     <script  type="text/javascript" src="{% static 'ricette/js/jquery.pages.js' %}" ></script>
+    
+    <script  type="text/javascript" src="{% static 'ricette/js/app.js' %}" /></script>
+        <script  type="text/javascript" src="{% static 'ricette/js/backbone.paginator.js' %}" ></script>
+
+    
     <script  type="text/javascript" src="{% static 'ricette/js/main.js' %}" /></script>
 
     <script  type="text/javascript" src="{% static 'ricette/js/models/categoriaPreparazioni.js' %}" ></script>
+     <script  type="text/javascript" src="{% static 'ricette/js/views/categoriaPreparazioni.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/views/Preparazioni.js' %}" ></script>
+    
+    <script  type="text/javascript" src="{% static 'ricette/js/views/AppView.js' %}" ></script><script  type="text/javascript" src="{% static 'ricette/js/views/PaginationView.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/views/ResultView.js' %}" ></script><script  type="text/javascript" src="{% static 'ricette/js/views/PaginationView.js' %}" ></script>
+        <script  type="text/javascript" src="{% static 'ricette/js/views/PaginationView.js' %}" ></script><script  type="text/javascript" src="{% static 'ricette/js/views/PaginationView.js' %}" ></script>
+
     <script  type="text/javascript" src="{% static 'ricette/js/collections/categoriePreparazioni.js' %}" ></script>
     <script  type="text/javascript" src="{% static 'ricette/js/views/categoriePreparazioni.js' %}" ></script>
-    <script  type="text/javascript" src="{% static 'ricette/js/views/categoriaPreparazioni.js' %}" ></script>
-    <script  type="text/javascript" src="{% static 'ricette/js/views/testView.js' %}" ></script>
-    <script  type="text/javascript" src="{% static 'ricette/js/app.js' %}" /></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/models/Item.js' %}" ></script>
+    <script  type="text/javascript" src="{% static 'ricette/js/collections/PaginatedCollection.js' %}" ></script>
+    
 
     <script>
   var media_url =    "{{ MEDIA_URL }}";
   //console.log(media_url)
-$('.carousel').carousel({
-  interval: 2000
-});
+//$('.carousel').carousel({
+//  interval: 2000
+//});
 createListeVeloci();
 //createCategoriePreparazione();
 </script>

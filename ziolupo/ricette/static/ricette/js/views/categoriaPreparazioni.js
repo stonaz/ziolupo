@@ -7,8 +7,8 @@ app.CategoriaPreparazioniView = Backbone.View.extend({
 
 
 test: function() {
-console.log(this.model.get('id'))
-app.pluto.print()
+console.log(this.model.get('id'));
+app.views.preparazioni.print();
 
 },   
     template: _.template( $( '#tmplCategoriaPreparazioni' ).html() ),

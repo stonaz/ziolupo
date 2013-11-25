@@ -7,6 +7,6 @@ app.CategoriaPreparazioni = Backbone.Model.extend({
     nome: "",
 },
  initialize: function() {
-console.log('model initialized')
+//console.log('model initialized')
 },
 });
